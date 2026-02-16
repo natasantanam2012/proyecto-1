@@ -3,60 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Médico | MediMatch</title>
+    <title>Registro de Profesionales | MediMatch</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8faff; }
+        .bg-doctor { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); }
+    </style>
 </head>
-<body class="bg-slate-900 font-[sans-serif] min-h-screen flex items-center justify-center p-6">
+<body class="min-h-screen flex flex-col">
 
-    <div class="bg-white w-full max-w-5xl rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
-        <div class="md:w-1/2 bg-indigo-600 p-12 text-white flex flex-col justify-between">
-            <div>
-                <div class="flex items-center gap-3 mb-12">
-                    <i class="fa-solid fa-house-medical text-3xl"></i>
-                    <span class="text-2xl font-black tracking-tighter">MediMatch PRO</span>
-                </div>
-                <h2 class="text-4xl font-black mb-6 leading-tight">Gestione su práctica clínica con inteligencia.</h2>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
-                        <i class="fa-solid fa-check-double"></i> Agenda sincronizada 24/7
-                    </li>
-                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
-                        <i class="fa-solid fa-check-double"></i> Ficha clínica electrónica
-                    </li>
-                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
-                        <i class="fa-solid fa-check-double"></i> Telemedicina integrada
-                    </li>
-                </ul>
+    <nav class="bg-white py-6 px-12 flex justify-between items-center border-b border-slate-100">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="bg-indigo-600 w-8 h-8 rounded-lg flex items-center justify-center">
+                <i class="fa-solid fa-house-medical text-white text-sm"></i>
             </div>
-            <p class="text-indigo-200 text-sm font-bold">© 2024 Red de Salud MediMatch Chile.</p>
-        </div>
+            <span class="text-xl font-black tracking-tighter text-slate-800 uppercase">MediMatch</span>
+        </a>
+        <a href="index.html" class="text-slate-500 font-bold text-xs uppercase hover:text-indigo-600">Volver al Inicio</a>
+    </nav>
 
-        <div class="md:w-1/2 p-12 md:p-20 bg-white">
-            <h3 class="text-3xl font-black text-slate-800 mb-2">Acceso Médico</h3>
-            <p class="text-slate-500 mb-10 font-medium">Ingrese sus credenciales profesionales.</p>
+    <div class="flex-1 flex items-center justify-center p-6">
+        <div class="max-w-4xl w-full bg-white rounded-[3rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
             
-            <form onsubmit="event.preventDefault(); alert('Acceso de demostración correcto');" class="space-y-6">
-                <div>
-                    <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2 tracking-widest">RUT Profesional</label>
-                    <input type="text" placeholder="12.345.678-9" class="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-100 transition-all">
+            <div class="md:w-1/3 bg-doctor p-12 text-white flex flex-col justify-center">
+                <h2 class="text-3xl font-black mb-6 leading-tight">Únete a la red médica líder.</h2>
+                <p class="text-indigo-200 text-sm font-medium mb-8">Al registrarte, podrás gestionar tus citas y aparecer en las búsquedas por ciudad de MediMatch.</p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i> Verificación SIS
+                    </div>
+                    <div class="flex items-center gap-3 text-xs font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-circle-check text-emerald-400"></i> Perfil Público
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2 tracking-widest">Contraseña</label>
-                    <input type="password" placeholder="••••••••" class="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-100 transition-all">
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-sm shadow-xl shadow-indigo-100 hover:bg-slate-900 transition-all active:scale-95">
-                    Entrar al Panel
-                </button>
-            </form>
-            
-            <div class="mt-10 text-center">
-                <a href="index.html" class="text-slate-400 font-bold text-xs uppercase hover:text-indigo-600 transition-colors">
-                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver al buscador
-                </a>
             </div>
-        </div>
-    </div>
 
-</body>
-</html>
+            <div class="md:w-2/3 p-12">
+                <h3 class="text-2xl font-black text-slate-800 mb-8">Crear cuenta de Profesional</h3>
+                
+                <form id="form-registro-medico" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2">Nombre Completo</label>
+                        <input type="text" required class="w-full bg-slate-50 rounded-2xl p-4 border-none outline-none font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500" placeholder="Ej: Dr. Juan Pérez">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2">Especialidad</label>
+                        <input type="text" required class="w-full bg-slate-50 rounded-2xl p-4 border-none outline-none font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500" placeholder="Ej: Cardiología">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2">Ciudad de Atención</label>
+                        <input type="text" required class="w-full bg-slate-50 rounded-2xl p-4 border-none outline-none font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500" placeholder="Ej: Puerto Montt">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2">N° Registro SIS</label>
+                        <input type="number" required class="w-full bg-slate-50 rounded-2xl p-4 border-none outline-none font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500" placeholder="123456">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2">Correo Electrónico</label>
+                        <input type="email" required class="w-full bg-slate-50 rounded-2xl p-4 border-none outline-none font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500" placeholder="doctor@ejemplo.cl">
+                    </div>
+                    <div class="md:col-span-2 mt-4">
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-5 rounded-[2rem
