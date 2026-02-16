@@ -3,85 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediMatch | Tu salud a un clic</title>
+    <title>MediMatch | Reserva tu Cita en Chile</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; margin: 0; }
         
-        .hero-bg { 
+        .hero-section { 
             background: linear-gradient(rgba(30, 27, 75, 0.85), rgba(30, 27, 75, 0.85)), 
-                        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1600');
-            background-size: cover;
-            background-position: center;
+                        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600');
+            background-size: cover; background-position: center;
+            padding: 100px 20px;
         }
-        .card-shadow { transition: all 0.3s ease-in-out; }
-        .card-shadow:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+
+        .doctor-card { 
+            background: white; border-radius: 2.5rem; border: 1px solid #e2e8f0; 
+            transition: all 0.3s ease; overflow: hidden;
+        }
+        .doctor-card:hover { transform: translateY(-10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); }
+        
+        /* Modales */
+        .modal { 
+            display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); 
+            z-index: 1000; backdrop-filter: blur(8px); align-items: center; justify-content: center; 
+        }
+        .modal.active { display: flex; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body>
 
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 py-4 px-6">
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 py-4 px-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="javascript:location.reload()" class="flex items-center gap-3 group">
-                <div class="bg-indigo-600 p-2.5 rounded-2xl text-white shadow-lg shadow-indigo-200 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-house-medical text-xl"></i>
-                </div>
-                <span class="text-2xl font-extrabold tracking-tighter text-slate-800">MediMatch</span>
-            </a>
+            <div class="flex items-center gap-3 cursor-pointer" onclick="location.reload()">
+                <div class="bg-indigo-600 p-2.5 rounded-2xl text-white shadow-lg"><i class="fa-solid fa-house-medical"></i></div>
+                <span class="text-2xl font-black text-slate-800 tracking-tighter">MediMatch</span>
+            </div>
             
-            <div class="flex items-center gap-4 md:gap-8">
-                <a href="#" class="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors">Soy médico</a>
-                <a href="#" class="bg-indigo-600 text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-200 transition-all active:scale-95">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleModal('modal-medico')" class="text-sm font-bold text-slate-500 hover:text-indigo-600 uppercase tracking-widest">Soy médico</button>
+                <button onclick="toggleModal('modal-cuenta')" class="bg-indigo-600 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-xl transition-all active:scale-95">
                     <i class="fa-regular fa-user mr-2"></i>Mi cuenta
-                </a>
+                </button>
             </div>
         </div>
     </nav>
 
-    <header class="hero-bg py-28 px-4 text-center">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-5xl md:text-7xl font-black text-white mb-6 uppercase tracking-tight">RESERVA TU CITA HOY</h2>
-            <p class="text-indigo-100 mb-14 text-xl font-medium opacity-90">Busca disponibilidad en segundos en todo el país</p>
+    <header class="hero-section text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">TU SALUD EN UN CLIC</h1>
+            <p class="text-indigo-100 mb-12 text-xl opacity-90">Busca especialistas certificados en todo Chile</p>
             
-            <div class="bg-white p-6 rounded-[3rem] shadow-2xl grid grid-cols-1 md:grid-cols-4 gap-6 text-left items-center border border-white/20">
+            <div class="bg-white p-5 rounded-[3rem] shadow-2xl grid grid-cols-1 md:grid-cols-4 gap-4 text-left border border-white/20">
                 <div class="px-4">
-                    <label class="block text-[10px] font-extrabold text-indigo-400 uppercase mb-2 tracking-widest">Especialidad</label>
-                    <input id="search-spec" list="list-specs" placeholder="¿Qué buscas?" class="w-full bg-transparent border-none outline-none text-sm font-bold text-slate-700 placeholder:text-slate-300">
-                    <datalist id="list-specs">
-                        <option value="Cardiología"><option value="Dermatología"><option value="Pediatría"><option value="Ginecología"><option value="Podología">
-                    </datalist>
+                    <label class="block text-[10px] font-black text-indigo-400 uppercase mb-1">Especialidad</label>
+                    <input id="search-spec" type="text" placeholder="¿Qué buscas?" class="w-full bg-transparent border-none outline-none font-bold text-slate-700">
                 </div>
-                <div class="px-4 md:border-l border-slate-100">
-                    <label class="block text-[10px] font-extrabold text-indigo-400 uppercase mb-2 tracking-widest">Ciudad</label>
-                    <input id="search-loc" list="list-cities" placeholder="¿Dónde?" class="w-full bg-transparent border-none outline-none text-sm font-bold text-slate-700 placeholder:text-slate-300">
-                    <datalist id="list-cities">
-                        <option value="Santiago"><option value="Valdivia"><option value="Concepción"><option value="Viña del Mar">
-                    </datalist>
+                <div class="px-4 md:border-l">
+                    <label class="block text-[10px] font-black text-indigo-400 uppercase mb-1">Ciudad</label>
+                    <input id="search-city" type="text" placeholder="¿Dónde?" class="w-full bg-transparent border-none outline-none font-bold text-slate-700">
                 </div>
-                <div class="px-4 md:border-l border-slate-100">
-                    <label class="block text-[10px] font-extrabold text-indigo-400 uppercase mb-2 tracking-widest">Fecha</label>
-                    <input id="search-date" type="text" placeholder="Selecciona" class="w-full bg-transparent border-none outline-none text-sm font-bold text-slate-700 placeholder:text-slate-300">
+                <div class="px-4 md:border-l">
+                    <label class="block text-[10px] font-black text-indigo-400 uppercase mb-1">Fecha</label>
+                    <input type="date" id="search-date" class="w-full bg-transparent border-none outline-none font-bold text-slate-700">
                 </div>
-                <button id="btn-search" class="bg-emerald-500 hover:bg-emerald-400 text-white font-black py-5 rounded-[2rem] transition-all shadow-xl shadow-emerald-500/30 active:scale-95 uppercase tracking-widest">
+                <button onclick="filtrar()" class="bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-[2rem] transition-all shadow-xl shadow-emerald-500/30 uppercase text-sm">
                     BUSCAR
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-24">
-        <h3 class="text-2xl font-extrabold text-slate-800 mb-12 flex items-center gap-3">
-            <span class="w-8 h-1 bg-indigo-600 rounded-full"></span>
-            Especialistas disponibles
-        </h3>
-        <div id="results-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+    <main class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-2xl font-black text-slate-800 mb-10 uppercase tracking-widest">Especialistas Destacados</h2>
+        <div id="contenedor-medicos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="./assets/js/main.js"></script>
+    <div id="modal-medico" class="modal" onclick="toggleModal('modal-medico')">
+        <div class="bg-white p-12 rounded-[3rem] max-w-md w-full m-4 shadow-2xl text-center" onclick="event.stopPropagation()">
+            <div class="bg-indigo-100 w-20 h-20 rounded-3xl flex items-center justify-center text-indigo-600 text-3xl mx-auto mb-6"><i class="fa-solid fa-stethoscope"></i></div>
+            <h3 class="text-3xl font-black text-slate-800 mb-2">Portal Médico</h3>
+            <p class="text-slate-500 mb-8 font-medium italic">Acceso exclusivo para especialistas</p>
+            <input type="email" placeholder="Correo profesional" class="w-full p-4 rounded-xl bg-slate-50 border-none outline-none mb-4 font-bold">
+            <button class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase text-xs tracking-widest shadow-lg shadow-indigo-100">Ingresar al Panel</button>
+        </div>
+    </div>
+
+    <div id="modal-cuenta" class="modal" onclick="toggleModal('modal-cuenta')">
+        <div class="bg-white p-12 rounded-[3rem] max-w-md w-full m-4 shadow-2xl text-center" onclick="event.stopPropagation()">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-24 h-24 rounded-[2rem] mx-auto mb-6 border-4 border-indigo-50 shadow-lg">
+            <h3 class="text-3xl font-black text-slate-800 mb-2 leading-none">Ana Valenzuela</h3>
+            <p class="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-8">Paciente MediMatch</p>
+            <button class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-slate-200">Ver mis recetas</button>
+            <button onclick="location.reload()" class="mt-6 text-rose-500 font-bold text-sm uppercase">Cerrar Sesión</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Datos de los Médicos (Las fotos están fijas para evitar errores de género)
+        const MEDICOS = [
+            { id: 1, nombre: "Dr. Mario Cimango", especialidad: "Cardiología", ciudad: "Santiago", img: "https://randomuser.me/api/portraits/men/32.jpg", precio: 45000 },
+            { id: 2, nombre: "Dr. Javier Soto", especialidad: "Podología", ciudad: "Valdivia", img: "https://randomuser.me/api/portraits/men/46.jpg", precio: 35000 },
+            { id: 3, nombre: "Dra. Ana Valenzuela", especialidad: "Pediatría", ciudad: "Concepción", img: "https://randomuser.me/api/portraits/women/44.jpg", precio: 40000 },
+            { id: 4, nombre: "Dr. Roberto Paz", especialidad: "Dermatología", ciudad: "Viña del Mar", img: "https://randomuser.me/api/portraits/men/86.jpg", precio: 50000 },
+            { id: 5, nombre: "Dra. Claudia Ortiz", especialidad: "Ginecología", ciudad: "Santiago", img: "https://randomuser.me/api/portraits/women/68.jpg", precio: 48000 },
+            { id: 6, nombre: "Dr. Sergio Lagos", especialidad: "Oftalmología", ciudad: "Iquique", img: "https://randomuser.me/api/portraits/men/12.jpg", precio: 42000 }
+        ];
+
+        // 2. Función para mostrar los médicos en la pantalla
+        function mostrarMedicos(lista) {
+            const grid = document.getElementById('contenedor-medicos');
+            grid.innerHTML = ""; // Limpiar antes de mostrar
+
+            lista.forEach(doc => {
+                grid.innerHTML += `
+                    <div class="doctor-card p-8">
+                        <div class="flex items-center gap-6 mb-8">
+                            <div class="relative">
+                                <img src="${doc.img}" class="w-24 h-24 rounded-[2rem] object-cover shadow-xl border-4 border-white">
+                                <div class="absolute -bottom-1 -right-1 bg-emerald-500 w-6 h-6 rounded-full border-4 border-white"></div>
+                            </div>
+                            <div>
+                                <span class="bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase px-3 py-1.5 rounded-xl tracking-widest">${doc.especialidad}</span>
+                                <h4 class="text-2xl font-extrabold text-slate-800 mt-2 leading-tight">${doc.nombre}</h4>
+                                <div class="flex text-amber-400 text-[10px] mt-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 rounded-3xl p-6 mb-8 space-y-3 text-sm font-bold text-slate-600">
+                            <p><i class="fa-solid fa-location-dot mr-3 text-rose-500"></i>${doc.ciudad}, Chile</p>
+                            <p><i class="fa-solid fa-calendar-check mr-3 text-emerald-500"></i>Disponible: Hoy</p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-black uppercase mb-1">Consulta</p>
+                                <span class="text-3xl font-black text-slate-900 leading-none">$${doc.precio.toLocaleString('es-CL')}</span>
+                            </div>
+                            <button class="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-black hover:bg-slate-900 transition-all shadow-lg text-xs uppercase active:scale-95">Reservar</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 3. Funciones de Modal y Filtro
+        function toggleModal(id) {
+            const m = document.getElementById(id);
+            m.classList.toggle('active');
+        }
+
+        function filtrar() {
+            const esp = document.getElementById('search-spec').value.toLowerCase();
+            const ciu = document.getElementById('search-city').value.toLowerCase();
+            const filtrados = MEDICOS.filter(m => 
+                m.especialidad.toLowerCase().includes(esp) && 
+                m.ciudad.toLowerCase().includes(ciu)
+            );
+            mostrarMedicos(filtrados);
+        }
+
+        // 4. Arrancar la página apenas cargue
+        window.onload = function() {
+            mostrarMedicos(MEDICOS);
+            // Configurar fecha de hoy en el calendario
+            const hoy = new Date().toISOString().split('T')[0];
+            document.getElementById('search-date').value = hoy;
+        };
+    </script>
 </body>
 </html>
