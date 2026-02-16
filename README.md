@@ -1,27 +1,25 @@
-# proyecto-1
-primer proyecto
+# 🏥 MediMatch Chile - Plataforma de Reserva de Citas
 
+MediMatch es una aplicación web moderna diseñada para conectar pacientes con especialistas médicos a lo largo de Chile. La plataforma permite realizar búsquedas inteligentes por especialidad, ciudad y fecha, ofreciendo una experiencia de usuario fluida y profesional.
 
+## 🚀 Características Principales
 
-## estructura de carpetas
-├── README.md
-├── assest
-│   ├── css
-│   ├── img
-│   └── js
-└── index.html
+* **Buscador Inteligente:** Filtros dinámicos por especialidad médica y ciudades de Chile.
+* **Calendario Funcional:** Gestión de fechas integrada para la disponibilidad de consultas.
+* **Diseño Premium:** Interfaz basada en *Plus Jakarta Sans* con estética médica limpia y adaptable (Responsive Design).
+* **Arquitectura Desacoplada:** Datos gestionados a través de un archivo `data.json` para facilitar futuras integraciones con APIs.
+* **Accesos Diferenciados:** Portales específicos para Pacientes (`mi-cuenta.html`) y Especialistas (`soy-medico.html`).
 
-# MediMatch - Sistema de Citas Médicas
+## 📁 Estructura del Proyecto
 
-Aplicación responsive para la búsqueda de disponibilidad médica a nivel nacional.
-
-## Tecnologías
-- **HTML5/CSS3** con Tailwind CSS.
-- **JavaScript ES6+** para lógica remota simulada.
-- **Flatpickr** para el manejo de calendarios.
-- **FontAwesome** para iconografía médica.
-
-## Estructura
-- `/assets/js/main.js`: Contiene los datos mockeados y la lógica de filtrado.
-- `/assets/css/`: Estilos personalizados adicionales.
-- `index.html`: Punto de entrada principal con diseño responsive.
+```text
+├── README.md               # Documentación del proyecto
+├── index.html              # Página principal y buscador
+├── mi-cuenta.html          # Panel de gestión del paciente
+├── soy-medico.html         # Portal de acceso para especialistas
+└── assets                  # Recursos estáticos
+    ├── css                 # Estilos personalizados
+    ├── img                 # Imágenes y logotipos
+    └── js
+        ├── data.json       # Base de datos simulada de especialistas
+        └── main.js         # Lógica de renderizado y filtros de búsqueda

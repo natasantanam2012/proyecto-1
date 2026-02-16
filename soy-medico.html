@@ -2,29 +2,61 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Médico | MediMatch</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <title>MediMatch | Portal Médico</title>
 </head>
-<body class="bg-indigo-950 min-h-screen flex items-center justify-center p-6">
-    <div class="bg-white max-w-md w-full rounded-[3rem] p-10 shadow-2xl text-center">
-        <div class="bg-indigo-100 w-20 h-20 rounded-3xl flex items-center justify-center text-indigo-600 text-3xl mx-auto mb-6">
-            <i class="fa-solid fa-user-doctor"></i>
-        </div>
-        <h1 class="text-3xl font-black text-slate-800 mb-2">Portal Médico</h1>
-        <p class="text-slate-500 mb-8 font-medium">Ingresa a tu agenda profesional</p>
-        
-        <form class="space-y-4 text-left">
+<body class="bg-slate-900 font-[sans-serif] min-h-screen flex items-center justify-center p-6">
+
+    <div class="bg-white w-full max-w-5xl rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
+        <div class="md:w-1/2 bg-indigo-600 p-12 text-white flex flex-col justify-between">
             <div>
-                <label class="text-[10px] font-black uppercase text-slate-400 ml-2">Correo Institucional</label>
-                <input type="email" class="w-full p-4 rounded-2xl bg-slate-50 border-none outline-none focus:ring-2 focus:ring-indigo-500 font-bold text-slate-700" placeholder="dr.nombre@medimatch.cl">
+                <div class="flex items-center gap-3 mb-12">
+                    <i class="fa-solid fa-house-medical text-3xl"></i>
+                    <span class="text-2xl font-black tracking-tighter">MediMatch PRO</span>
+                </div>
+                <h2 class="text-4xl font-black mb-6 leading-tight">Gestione su práctica clínica con inteligencia.</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
+                        <i class="fa-solid fa-check-double"></i> Agenda sincronizada 24/7
+                    </li>
+                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
+                        <i class="fa-solid fa-check-double"></i> Ficha clínica electrónica
+                    </li>
+                    <li class="flex items-center gap-3 font-bold text-indigo-100 italic">
+                        <i class="fa-solid fa-check-double"></i> Telemedicina integrada
+                    </li>
+                </ul>
             </div>
-            <button class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-lg shadow-indigo-200">Acceder al Panel</button>
-        </form>
-        
-        <a href="index.html" class="inline-block mt-8 text-slate-400 font-bold text-sm hover:text-indigo-600 transition-colors">
-            <i class="fa-solid fa-arrow-left mr-2"></i>Volver al buscador
-        </a>
+            <p class="text-indigo-200 text-sm font-bold">© 2024 Red de Salud MediMatch Chile.</p>
+        </div>
+
+        <div class="md:w-1/2 p-12 md:p-20 bg-white">
+            <h3 class="text-3xl font-black text-slate-800 mb-2">Acceso Médico</h3>
+            <p class="text-slate-500 mb-10 font-medium">Ingrese sus credenciales profesionales.</p>
+            
+            <form onsubmit="event.preventDefault(); alert('Acceso de demostración correcto');" class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2 tracking-widest">RUT Profesional</label>
+                    <input type="text" placeholder="12.345.678-9" class="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-100 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-indigo-600 uppercase mb-2 tracking-widest">Contraseña</label>
+                    <input type="password" placeholder="••••••••" class="w-full bg-slate-50 border-none rounded-2xl p-4 font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-100 transition-all">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black uppercase text-sm shadow-xl shadow-indigo-100 hover:bg-slate-900 transition-all active:scale-95">
+                    Entrar al Panel
+                </button>
+            </form>
+            
+            <div class="mt-10 text-center">
+                <a href="index.html" class="text-slate-400 font-bold text-xs uppercase hover:text-indigo-600 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Volver al buscador
+                </a>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
